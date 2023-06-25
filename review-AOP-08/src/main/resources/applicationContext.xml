@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--  注册Bean  -->
+    <bean name="student" class="com.example.demo03.Student" />
+    <bean name="studentAOP" class="com.example.demo03.StudentAOP" />
+    <!--  配置Spring AOP  -->
+    <aop:config>
+        <!--    1. 指定切入点    -->
+        <aop:pointcut id="test" expression="execution(public void com.example.demo03.Student.study())"/>
+
+        <!--    2. 指定切面    -->
+        <aop:aspect ref="studentAOP">
+            <aop:after method="afterStudy" pointcut-ref="test" />
+        </aop:aspect>
+    </aop:config>
+</beans>
